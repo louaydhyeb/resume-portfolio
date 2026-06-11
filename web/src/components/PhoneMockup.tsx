@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { profile } from '../data/cv';
+import { asset } from '../utils/asset';
 import './PhoneMockup.css';
 
 const screens = ['home', 'code'] as const;
@@ -61,7 +62,7 @@ export function PhoneMockup() {
                   transition={{ duration: 0.4 }}
                 >
                   <div className="phone-screen__header">
-                    <img src="/profile.jpg" alt="" className="phone-screen__avatar" />
+                    <img src={asset('profile.jpg')} alt="" className="phone-screen__avatar" />
                     <div>
                       <p className="phone-screen__hello">Bonjour 👋</p>
                       <p className="phone-screen__name">{profile.name.split(' ')[0]}</p>

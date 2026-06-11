@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Briefcase } from 'lucide-react';
 import { experiences } from '../data/cv';
+import { asset } from '../utils/asset';
 import './Experience.css';
 
 export function Experience() {
@@ -52,7 +53,7 @@ export function Experience() {
                     style={{ '--company-color': exp.companyColor } as CSSProperties}
                   >
                     <img
-                      src={exp.logo}
+                      src={asset(exp.logo)}
                       alt={`Logo ${exp.company}`}
                       className="timeline__company-logo"
                       loading="lazy"
