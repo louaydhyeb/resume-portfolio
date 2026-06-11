@@ -1,0 +1,319 @@
+.phone-mockup {
+  position: relative;
+  perspective: 1000px;
+}
+
+.phone-mockup__glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, rgba(61, 220, 132, 0.2) 0%, rgba(127, 82, 255, 0.1) 40%, transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.phone-mockup__device {
+  position: relative;
+  z-index: 1;
+  width: 260px;
+  padding: 12px;
+  background: linear-gradient(145deg, #2a2a35, #1a1a22);
+  border-radius: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(61, 220, 132, 0.1);
+}
+
+.phone-mockup__bezel {
+  background: #0d0d12;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-mockup__camera {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #1a1a22;
+  border-radius: 50%;
+  border: 2px solid #2a2a35;
+  z-index: 5;
+}
+
+.phone-mockup__statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.phone-mockup__status-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.phone-mockup__signal,
+.phone-mockup__wifi,
+.phone-mockup__battery {
+  display: block;
+  background: var(--text);
+  border-radius: 1px;
+}
+
+.phone-mockup__signal { width: 12px; height: 8px; clip-path: polygon(0 100%, 25% 60%, 50% 80%, 75% 40%, 100% 60%, 100% 100%); }
+.phone-mockup__wifi { width: 10px; height: 8px; border-radius: 50% 50% 0 0; border: 2px solid var(--text); border-bottom: none; background: transparent; }
+.phone-mockup__battery { width: 16px; height: 8px; border: 1.5px solid var(--text); border-radius: 2px; position: relative; }
+.phone-mockup__battery::after { content: ''; position: absolute; right: -3px; top: 2px; width: 2px; height: 4px; background: var(--text); border-radius: 0 1px 1px 0; }
+
+.phone-mockup__screen {
+  height: 380px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-screen {
+  padding: 12px 14px;
+  height: 100%;
+}
+
+.phone-screen--home {
+  background: linear-gradient(180deg, #12121a 0%, #0d0d12 100%);
+}
+
+.phone-screen__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.phone-screen__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+.phone-screen__hello {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.phone-screen__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.phone-screen__card {
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+.phone-screen__card--green {
+  background: linear-gradient(135deg, rgba(61, 220, 132, 0.2), rgba(61, 220, 132, 0.05));
+  border: 1px solid rgba(61, 220, 132, 0.3);
+}
+
+.phone-screen__card-label {
+  display: block;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.phone-screen__card strong {
+  font-size: 0.85rem;
+}
+
+.phone-screen__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.phone-screen__stat {
+  padding: 10px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.phone-screen__stat span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--kotlin);
+}
+
+.phone-screen__stat small {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+}
+
+.phone-screen__fab {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(61, 220, 132, 0.35);
+  animation: fabPulse 3s ease-in-out infinite;
+}
+
+.phone-screen__fab span {
+  width: 18px;
+  height: 2px;
+  background: var(--bg);
+  border-radius: 1px;
+  position: relative;
+}
+
+.phone-screen__fab span::before,
+.phone-screen__fab span::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background: var(--bg);
+  border-radius: 1px;
+  left: 0;
+}
+
+.phone-screen__fab span::before { top: -6px; }
+.phone-screen__fab span::after { top: 6px; }
+
+@keyframes fabPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.phone-screen--code {
+  background: #1e1e2e;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-screen__ide-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 8px 8px 0;
+  background: #151520;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+}
+
+.phone-screen__ide-tabs span {
+  padding: 6px 10px;
+  border-radius: 8px 8px 0 0;
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.phone-screen__ide-tabs span.active {
+  background: #1e1e2e;
+  color: var(--kotlin);
+}
+
+.phone-screen__ide-code {
+  flex: 1;
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  line-height: 1.5;
+  color: #a9b7c6;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.phone-screen__build {
+  padding: 8px 12px;
+  background: #151520;
+  border-top: 1px solid var(--border);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+}
+
+.phone-screen__build-bar {
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-bottom: 6px;
+  box-shadow: 0 0 8px rgba(61, 220, 132, 0.5);
+}
+
+.phone-mockup__navbar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.phone-mockup__navbar span {
+  width: 20px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.phone-mockup__navbar span.active {
+  background: var(--accent);
+  width: 28px;
+}
+
+.phone-mockup__orbit {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  top: -10px;
+  right: -20px;
+  z-index: 2;
+}
+
+.phone-mockup__orbit--kotlin {
+  background: linear-gradient(135deg, #7F52FF, #E448FF);
+  color: white;
+  box-shadow: 0 8px 24px rgba(127, 82, 255, 0.4);
+}
+
+@media (max-width: 900px) {
+  .phone-mockup__device {
+    width: 220px;
+  }
+
+  .phone-mockup__screen {
+    height: 320px;
+  }
+
+  .phone-mockup__orbit {
+    display: none;
+  }
+}

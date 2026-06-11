@@ -1,0 +1,20 @@
+# Dependencies
+web/node_modules/
+
+# Build
+web/dist/
+
+# Vite
+web/.vite/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Env
+.env
+.env.*
+
+# Logs
+*.log

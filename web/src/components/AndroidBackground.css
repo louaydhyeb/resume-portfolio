@@ -1,0 +1,72 @@
+.android-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.android-bg__robot {
+  position: absolute;
+  bottom: 12%;
+  left: 4%;
+  width: 120px;
+  height: 140px;
+  color: var(--accent);
+  opacity: 0.35;
+}
+
+.android-bg__snippet {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0;
+  white-space: nowrap;
+  animation: snippetFloat 12s ease-in-out infinite;
+}
+
+.android-bg__bracket {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--kotlin);
+  opacity: 0;
+  animation: bracketPulse 10s ease-in-out infinite;
+}
+
+.android-bg__grid-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(61, 220, 132, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at 30% 70%, black 0%, transparent 60%);
+  opacity: 0.4;
+}
+
+@keyframes snippetFloat {
+  0%, 100% { opacity: 0; transform: translateY(10px); }
+  15%, 85% { opacity: 0.18; transform: translateY(0); }
+  50% { opacity: 0.28; transform: translateY(-8px); }
+}
+
+@keyframes bracketPulse {
+  0%, 100% { opacity: 0; transform: scale(0.9); }
+  30%, 70% { opacity: 0.08; transform: scale(1); }
+}
+
+@media (max-width: 900px) {
+  .android-bg__robot {
+    width: 80px;
+    height: 90px;
+    bottom: 5%;
+    left: 2%;
+    opacity: 0.2;
+  }
+
+  .android-bg__snippet,
+  .android-bg__bracket {
+    display: none;
+  }
+}
