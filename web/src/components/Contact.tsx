@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 import { Mail, Send, MapPin } from 'lucide-react';
+import { profile } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
+import './Contact.css';
 
 function LinkedInIcon() {
   return (
@@ -16,10 +19,11 @@ function GitHubIcon() {
     </svg>
   );
 }
-import { profile } from '../data/cv';
-import './Contact.css';
 
 export function Contact() {
+  const { t } = useLanguage();
+  const section = t.sections.contact;
+
   return (
     <section id="contact" className="section contact">
       <motion.div
@@ -31,13 +35,11 @@ export function Contact() {
       >
         <div className="contact__glow" />
 
-        <p className="section-label">Contact</p>
+        <p className="section-label">{section.label}</p>
         <h2 className="contact__title">
-          Travaillons <span>ensemble</span>
+          {section.title} <span>{section.highlight}</span>
         </h2>
-        <p className="contact__subtitle">
-          Vous avez un projet Android ambitieux ? Discutons de comment je peux contribuer à votre équipe.
-        </p>
+        <p className="contact__subtitle">{section.subtitle}</p>
 
         <div className="contact__links">
           <a href={`mailto:${profile.email}`} className="contact__link">
@@ -60,7 +62,7 @@ export function Contact() {
 
         <a href={`mailto:${profile.email}`} className="contact__cta">
           <Send size={18} />
-          Envoyer un message
+          {section.send}
         </a>
       </motion.div>
     </section>

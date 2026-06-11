@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { navItems, profile } from '../data/cv';
+import { profile } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import './Navbar.css';
 
 export function Navbar() {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('hero');
@@ -13,13 +16,13 @@ export function Navbar() {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      const sections = navItems.map((item) => document.getElementById(item.id));
+      const sections = t.nav.map((item) => document.getElementById(item.id));
       const scrollPos = window.scrollY + 120;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section && section.offsetTop <= scrollPos) {
-          setActive(navItems[i].id);
+          setActive(t.nav[i].id);
           break;
         }
       }
@@ -27,7 +30,7 @@ export function Navbar() {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [t.nav]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -48,7 +51,7 @@ export function Navbar() {
         </button>
 
         <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
-          {navItems.map((item) => (
+          {t.nav.map((item) => (
             <li key={item.id}>
               <button
                 className={`navbar__link ${active === item.id ? 'navbar__link--active' : ''}`}
@@ -60,12 +63,15 @@ export function Navbar() {
           ))}
         </ul>
 
-        <button
-          className="navbar__cta"
-          onClick={() => scrollTo('contact')}
-        >
-          Me contacter
-        </button>
+        <div className="navbar__actions">
+          <LanguageSwitcher />
+          <button
+            className="navbar__cta"
+            onClick={() => scrollTo('contact')}
+          >
+            {t.navbar.contact}
+          </button>
+        </div>
 
         <button
           className="navbar__burger"

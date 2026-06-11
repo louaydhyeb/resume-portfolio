@@ -1,17 +1,14 @@
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, MapPin } from 'lucide-react';
 import { profile } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
 import { KotlinTerminal } from './KotlinTerminal';
 import { PhoneMockup } from './PhoneMockup';
 import './Hero.css';
 
-const floatingCards = [
-  { icon: '⚡', title: 'Coroutines', sub: 'Async & Flow', delay: 0, pos: 'hero__floating-card--1' },
-  { icon: '🏗️', title: 'MVVM', sub: 'Clean Architecture', delay: 0.2, pos: 'hero__floating-card--2' },
-  { icon: '🎨', title: 'Compose', sub: 'Material 3 UI', delay: 0.4, pos: 'hero__floating-card--3' },
-];
-
 export function Hero() {
+  const { t } = useLanguage();
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -27,7 +24,7 @@ export function Hero() {
         >
           <span className="hero__badge-dot" />
           <span className="hero__badge-android">Android</span>
-          Disponible pour de nouvelles opportunités
+          {t.hero.available}
         </motion.div>
 
         <motion.h1
@@ -36,7 +33,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.7 }}
         >
-          <span className="hero__greeting">Bonjour, je suis</span>
+          <span className="hero__greeting">{t.hero.greeting}</span>
           <span className="hero__name">{profile.name}</span>
         </motion.h1>
 
@@ -46,7 +43,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
         >
-          {profile.title}
+          {t.profile.title}
           <span className="hero__kotlin-tag">Kotlin</span>
         </motion.p>
 
@@ -56,7 +53,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
         >
-          {profile.tagline}
+          {t.profile.tagline}
         </motion.p>
 
         <motion.div
@@ -76,11 +73,11 @@ export function Hero() {
           transition={{ delay: 0.75 }}
         >
           <button className="hero__btn hero__btn--primary material-ripple" onClick={() => scrollTo('experience')}>
-            Voir mon parcours
+            {t.hero.viewExperience}
           </button>
           <button className="hero__btn hero__btn--secondary material-ripple" onClick={() => scrollTo('contact')}>
             <Download size={18} />
-            Me contacter
+            {t.hero.contact}
           </button>
         </motion.div>
 
@@ -90,11 +87,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          {[
-            { value: '7+', label: 'Ans d\'expérience' },
-            { value: '4', label: 'Entreprises majeures' },
-            { value: 'OCP', label: 'Certifié Java SE 11' },
-          ].map((stat, i) => (
+          {t.hero.stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               className="hero__stat"
@@ -114,16 +107,16 @@ export function Hero() {
       <div className="hero__visual">
         <PhoneMockup />
 
-        {floatingCards.map((card) => (
+        {t.hero.floatingCards.map((card, i) => (
           <motion.div
             key={card.title}
-            className={`hero__floating-card ${card.pos}`}
+            className={`hero__floating-card hero__floating-card--${i + 1}`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
             transition={{
-              opacity: { delay: 0.8 + card.delay, duration: 0.5 },
-              scale: { delay: 0.8 + card.delay, duration: 0.5 },
-              y: { delay: 1.2 + card.delay, duration: 4, repeat: Infinity, ease: 'easeInOut' },
+              opacity: { delay: 0.8 + i * 0.2, duration: 0.5 },
+              scale: { delay: 0.8 + i * 0.2, duration: 0.5 },
+              y: { delay: 1.2 + i * 0.2, duration: 4, repeat: Infinity, ease: 'easeInOut' },
             }}
           >
             <span className="hero__card-icon">{card.icon}</span>
@@ -144,7 +137,7 @@ export function Hero() {
           opacity: { delay: 1.2 },
           y: { delay: 1.5, duration: 2, repeat: Infinity },
         }}
-        aria-label="Défiler vers le bas"
+        aria-label={t.hero.scrollLabel}
       >
         <ArrowDown size={20} />
       </motion.button>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { skills } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Skills.css';
 
 const container = {
@@ -13,6 +13,9 @@ const item = {
 };
 
 export function Skills() {
+  const { t } = useLanguage();
+  const section = t.sections.skills;
+
   return (
     <section id="skills" className="section">
       <motion.div
@@ -21,9 +24,9 @@ export function Skills() {
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.5 }}
       >
-        <p className="section-label">Expertise</p>
+        <p className="section-label">{section.label}</p>
         <h2 className="section-title">
-          Compétences <span>techniques</span>
+          {section.title} <span>{section.highlight}</span>
         </h2>
       </motion.div>
 
@@ -34,7 +37,7 @@ export function Skills() {
         whileInView="show"
         viewport={{ once: true, margin: '-60px' }}
       >
-        {skills.map((group, index) => (
+        {t.skills.map((group, index) => (
           <motion.article
             key={group.category}
             className={`skill-card ${index === 0 ? 'skill-card--mobile' : ''}`}

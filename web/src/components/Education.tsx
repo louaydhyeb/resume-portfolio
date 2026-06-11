@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
 import { Award, GraduationCap } from 'lucide-react';
-import { education, certifications } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Education.css';
 
 export function Education() {
+  const { t } = useLanguage();
+  const section = t.sections.education;
+
   return (
     <section id="education" className="section">
       <motion.div
@@ -12,14 +15,14 @@ export function Education() {
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.5 }}
       >
-        <p className="section-label">Formation</p>
+        <p className="section-label">{section.label}</p>
         <h2 className="section-title">
-          Parcours <span>académique</span>
+          {section.title} <span>{section.highlight}</span>
         </h2>
       </motion.div>
 
       <div className="edu-grid">
-        {education.map((edu) => (
+        {t.education.map((edu) => (
           <motion.article
             key={edu.title}
             className="edu-card"
@@ -38,7 +41,7 @@ export function Education() {
           </motion.article>
         ))}
 
-        {certifications.map((cert) => (
+        {t.certifications.map((cert) => (
           <motion.article
             key={cert.title}
             className="edu-card edu-card--cert"

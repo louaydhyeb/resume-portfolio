@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { profile } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
 import profilePhoto from '../assets/profile.jpg';
 import './PhoneMockup.css';
 
@@ -8,18 +9,20 @@ const screens = ['home', 'code'] as const;
 type Screen = (typeof screens)[number];
 
 export function PhoneMockup() {
+  const { lang, t } = useLanguage();
   const [screen, setScreen] = useState<Screen>('home');
   const [time, setTime] = useState('');
 
   useEffect(() => {
     const tick = () => {
       const now = new Date();
-      setTime(now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
+      const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
+      setTime(now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }));
     };
     tick();
     const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -27,6 +30,8 @@ export function PhoneMockup() {
     }, 5000);
     return () => clearInterval(id);
   }, []);
+
+  const phone = t.phone;
 
   return (
     <motion.div
@@ -64,28 +69,28 @@ export function PhoneMockup() {
                   <div className="phone-screen__header">
                     <img src={profilePhoto} alt="" className="phone-screen__avatar" />
                     <div>
-                      <p className="phone-screen__hello">Bonjour 👋</p>
+                      <p className="phone-screen__hello">{phone.hello}</p>
                       <p className="phone-screen__name">{profile.name.split(' ')[0]}</p>
                     </div>
                   </div>
 
                   <div className="phone-screen__card phone-screen__card--green">
-                    <span className="phone-screen__card-label">Rôle</span>
-                    <strong>Android Senior</strong>
+                    <span className="phone-screen__card-label">{phone.roleLabel}</span>
+                    <strong>{phone.role}</strong>
                   </div>
 
                   <div className="phone-screen__stats">
                     <div className="phone-screen__stat">
                       <span>7+</span>
-                      <small>ans</small>
+                      <small>{phone.years}</small>
                     </div>
                     <div className="phone-screen__stat">
                       <span>Kotlin</span>
-                      <small>expert</small>
+                      <small>{phone.expert}</small>
                     </div>
                     <div className="phone-screen__stat">
                       <span>MVVM</span>
-                      <small>clean</small>
+                      <small>{phone.clean}</small>
                     </div>
                   </div>
 
@@ -130,7 +135,7 @@ fun Greeting(name: String) {
                       animate={{ width: ['0%', '100%'] }}
                       transition={{ duration: 2.5, ease: 'easeInOut' }}
                     />
-                    <span>Building APK…</span>
+                    <span>{phone.building}</span>
                   </div>
                 </motion.div>
               )}

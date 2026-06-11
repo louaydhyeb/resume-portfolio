@@ -1,11 +1,13 @@
 import { useState, type CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Briefcase } from 'lucide-react';
-import { experiences } from '../data/cv';
+import { useLanguage } from '../i18n/LanguageContext';
 import { asset } from '../utils/asset';
 import './Experience.css';
 
 export function Experience() {
+  const { t } = useLanguage();
+  const section = t.sections.experience;
   const [expanded, setExpanded] = useState<number | null>(0);
 
   return (
@@ -16,16 +18,16 @@ export function Experience() {
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.5 }}
       >
-        <p className="section-label">Parcours</p>
+        <p className="section-label">{section.label}</p>
         <h2 className="section-title">
-          Expériences <span>professionnelles</span>
+          {section.title} <span>{section.highlight}</span>
         </h2>
       </motion.div>
 
       <div className="timeline">
         <div className="timeline__line" />
 
-        {experiences.map((exp, index) => {
+        {t.experiences.map((exp, index) => {
           const isOpen = expanded === index;
 
           return (
@@ -92,8 +94,8 @@ export function Experience() {
                     </ul>
 
                     <div className="timeline__tech">
-                      {exp.tech.map((t) => (
-                        <span key={t} className="timeline__tech-tag">{t}</span>
+                      {exp.tech.map((tech) => (
+                        <span key={tech} className="timeline__tech-tag">{tech}</span>
                       ))}
                     </div>
                   </motion.div>
