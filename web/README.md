@@ -49,9 +49,10 @@ git push -u origin main
 ### 3. Activer GitHub Pages
 
 1. Repo GitHub → **Settings** → **Pages**
-2. **Build and deployment** → Source : **GitHub Actions**
-3. Après le premier push, l’action « Deploy to GitHub Pages » se lance automatiquement
-4. Attends 1–2 min → ton site sera sur :
+2. **Build and deployment** → Source : **Deploy from a branch**
+3. Branch : **gh-pages** / dossier **/ (root)**
+4. Sauvegarde, puis pousse le code (ou relance l’action **Actions → Deploy to GitHub Pages → Re-run**)
+5. Attends 1–2 min → ton site sera sur :
    - `https://TON_USERNAME.github.io/NOM_DU_REPO/` (repo classique)
    - `https://TON_USERNAME.github.io/` (si le repo s’appelle `TON_USERNAME.github.io`)
 
