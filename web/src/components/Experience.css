@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .timeline__line {
@@ -11,8 +11,23 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent-blue), transparent);
-  opacity: 0.3;
+  border-radius: 1px;
+  transform-origin: top;
+}
+
+.timeline__line--track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.timeline__line--progress {
+  background: linear-gradient(
+    to bottom,
+    var(--accent) 0%,
+    var(--accent-blue) 50%,
+    var(--kotlin) 100%
+  );
+  box-shadow: 0 0 12px rgba(61, 220, 132, 0.45);
+  z-index: 0;
 }
 
 .timeline__item {
@@ -22,11 +37,32 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color 0.3s;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  z-index: 1;
+}
+
+.timeline__item--inview {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
 }
 
 .timeline__item--open {
-  border-color: rgba(61, 220, 132, 0.25);
+  border-color: rgba(61, 220, 132, 0.3);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(61, 220, 132, 0.1);
+}
+
+.timeline__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--company-color, var(--accent)), transparent);
+  transform-origin: left;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .timeline__dot {
@@ -38,14 +74,21 @@
   border-radius: 50%;
   background: var(--company-color, var(--accent));
   border: 3px solid var(--bg);
-  box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.2);
-  z-index: 1;
-  animation: dotPulse 2.5s ease-in-out infinite;
+  z-index: 2;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--company-color, var(--accent)) 20%, transparent);
 }
 
-@keyframes dotPulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.2); }
-  50% { box-shadow: 0 0 0 6px rgba(61, 220, 132, 0.08); }
+.timeline__item--inview .timeline__dot {
+  animation: dotGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes dotGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--company-color, var(--accent)) 25%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 9px color-mix(in srgb, var(--company-color, var(--accent)) 12%, transparent);
+  }
 }
 
 .timeline__header {
@@ -114,12 +157,7 @@
 
 .timeline__chevron {
   color: var(--text-muted);
-  transition: transform 0.3s;
   flex-shrink: 0;
-}
-
-.timeline__chevron--open {
-  transform: rotate(180deg);
 }
 
 .timeline__body {
@@ -174,6 +212,7 @@
   border: 1px solid rgba(61, 220, 132, 0.2);
   border-radius: 100px;
   color: var(--accent);
+  cursor: default;
 }
 
 @media (max-width: 640px) {
@@ -195,5 +234,11 @@
 
   .timeline__body {
     padding: 0 20px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__item {
+    transition: none;
   }
 }
